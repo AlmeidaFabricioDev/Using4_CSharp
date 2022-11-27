@@ -6,20 +6,18 @@
         {
             string caminho = @"c:\temp\arquivo1.txt"; //Aqui pego no diretório local o arquivo que irei trabalhar
 
+
             try //Aqui utilizamos o try para testar pontos críticos do código, ou seja, lugares que onde há grande possibilidade de erros
             {
-                //Using fecha o objeto arquivo depois do seu uso
-                using (FileStream arquvo = new FileStream(caminho, FileMode.Open))
-                //FileStream forncece um stream para o arquivo, e o Filemode.open abre um  arquivo do tipo FileStream
+                //Using vai fechar o objeto depois do seu uso
+                //O leitor do tipo stream reader vai receber o arquivo caminho dentro do método File.OpenText que fará a leitura deste arquivo
+                using (StreamReader leitor = File.OpenText(caminho))
                 {
-                    //Using fecha o objeto leitor depois de seu uso uso
-                    using (StreamReader leitor = new StreamReader(arquvo))
-                    //SreamReader fará a leitura deste arquivo
+                    while (!leitor.EndOfStream) //Enquanto a o leitor na posição do fluxo atual Não(!) estiver no final executa a estrutura de repetição abaixo
                     {
-                        string linhas = leitor.ReadLine(); //Se tudo ocorrer bem, linhas do tipo string irá receber o leitor que é do tipo StreamReader.
+                        string linhas = leitor.ReadLine(); //linhas do tipo string irá receber o leitor que é do tipo StreamReader
                         Console.WriteLine(linhas); //Aqui ocorrerá a impressão na tela do console.
                     }
-
                 }
             }
             catch (IOException e) //Caso ocorra alguma exceções geradas ao acessar informações usando fluxos, arquivos e diretórios.
